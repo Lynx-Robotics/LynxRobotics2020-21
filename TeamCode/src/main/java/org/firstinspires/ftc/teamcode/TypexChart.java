@@ -4,6 +4,7 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -12,7 +13,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 public class TypexChart {
-    public DcMotor TL, TR, BL, BR;
+    public DcMotorEx TL, TR, BL, BR;
 
     public BNO055IMU imu;
 
@@ -32,17 +33,16 @@ public class TypexChart {
 
     public void init(HardwareMap ahwMap) {
         // Save reference to Hardware map
-        CONSTANTS constants = new CONSTANTS();
         chart = ahwMap;
 
         // Define and Initialize Motors
-        TL = ahwMap.get(DcMotor.class, "TL");
-        TR = ahwMap.get(DcMotor.class, "TR");
-        BL = ahwMap.get(DcMotor.class, "BL");
-        BR = ahwMap.get(DcMotor.class, "BR");
+        TL = ahwMap.get(DcMotorEx.class, "TL");
+        TR = ahwMap.get(DcMotorEx.class, "TR");
+        BL = ahwMap.get(DcMotorEx.class, "BL");
+        BR = ahwMap.get(DcMotorEx.class, "BR");
 
-        TL.setDirection(DcMotorSimple.Direction.REVERSE);
-        BL.setDirection(DcMotorSimple.Direction.REVERSE);
+        TL.setDirection(DcMotorEx.Direction.REVERSE);
+        BL.setDirection(DcMotorEx.Direction.REVERSE);
 
         imu = ahwMap.get(BNO055IMU.class, "imu");
 
