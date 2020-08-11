@@ -11,11 +11,17 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 public class DataCollection extends LinearOpMode {
     TypexChart chart = new TypexChart();
 
+    public DataCollection() throws Exception {
+        Logging.setup();
+        Logging.log("Starting Data Collection Logging.");
+    }
 
     @Override
     public void runOpMode() throws InterruptedException {
 
         chart.init(hardwareMap);
+
+
 
         AlgorithmLibrary lib = new AlgorithmLibrary();
 
@@ -37,10 +43,7 @@ public class DataCollection extends LinearOpMode {
             double range = chart.sensorRange.getDistance(DistanceUnit.INCH);
             telemetry.addData("range", String.format("%.01f in", range));
             telemetry.addData("range", String.format("%.01f avg", lib.avgValue(range)));
-            telemetry.log().add("TL Pos: ", chart.TL.getCurrentPosition());
-            telemetry.log().add("TR Pos: ", chart.TR.getCurrentPosition());
-            telemetry.log().add("BL Pos: ", chart.BL.getCurrentPosition());
-            telemetry.log().add("BR Pos: ", chart.BR.getCurrentPosition());
+
 
             telemetry.update();
         }
