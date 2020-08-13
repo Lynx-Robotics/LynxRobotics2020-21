@@ -1,5 +1,13 @@
-import java.util.ArrayList;
+package org.firstinspires.ftc.teamcode;
+
 import java.util.Arrays;
+
+/* Neverest 40 Motors have 1120 ticks per revolution
+* HD Mecanum wheels have a diameter of 4in
+* Circumference of wheels = 12.566370614359172953850573533118‬in
+* Ex. 5600ticks/1120 = 5 * C = 62in
+*
+* */
 
 public class GaussianLibrary {
     public double[] gaussian(double mean, double variance) {
@@ -31,6 +39,7 @@ public class GaussianLibrary {
         double[] posterior = gaussian_multiply(likelihood, prior);
         return posterior;
     }
+
 
     public static void main(String[] args) {
         GaussianLibrary lib = new GaussianLibrary();

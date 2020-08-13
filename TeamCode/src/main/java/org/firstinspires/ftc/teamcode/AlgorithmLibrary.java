@@ -3,13 +3,18 @@ package org.firstinspires.ftc.teamcode;
 import java.io.IOException;
 
 public class AlgorithmLibrary {
-
     public AlgorithmLibrary() throws IOException {
         Logging.setup();
         Logging.log("Starting Data Collection Logging for AlgLib.");
     }
 
     public TypexChart chart = new TypexChart();
+
+    public double ticksPerRev = 1120; //Neverest 40 motor
+    public double diameterOfWheels = 4; //HD Mecanums
+    public double circumfrenceOfWheels = diameterOfWheels * Math.PI;
+    public double ticksToIN = (1 / ticksPerRev) * circumfrenceOfWheels;
+    public double INToTicks = (1 / ticksToIN);
 
     double values[] = new double[10];
     int indexValue = 0;
