@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 
 /* Neverest 40 Motors have 1120 ticks per revolution
 * HD Mecanum wheels have a diameter of 4in
@@ -10,6 +11,8 @@ import java.util.Arrays;
 * */
 
 public class GaussianLibrary {
+    public LinkedList zs = new LinkedList<>();
+
     public double[] gaussian(double mean, double variance) {
         double gaussian[] = new double[] {mean, variance};
 
@@ -52,11 +55,11 @@ public class GaussianLibrary {
         double dt = 1;
         double[] process_model = lib.gaussian(velocity*dt, process_var); //How I think the robot is moving
 
-        double[] zs = {1.3535959735108178, 1.8820653967131618, 4.341047429453569, 7.156332673205118, 6.938695089418526, 6.843912342028484, 9.846824080052299, 12.553482049375292, 16.2730841073834, 14.800411177015299};
 
-        for (int i = 1; i < zs.length; i++) {
+
+        for (int i = 1; i < lib.zs.size(); i++) {
             double[] prior = lib.predict(x, process_model);
-            double[] likelihood = lib.gaussian(zs[i], sensor_var);
+            double[] likelihood = lib.gaussian((Double) lib.zs.get(i), sensor_var);
             x = lib.update(prior, likelihood);
             System.out.println("Predict: " + Arrays.toString(prior));
             System.out.println("Update:  " + Arrays.toString(x));

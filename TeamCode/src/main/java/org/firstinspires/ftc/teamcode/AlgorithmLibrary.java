@@ -15,6 +15,10 @@ public class AlgorithmLibrary {
     public double circumfrenceOfWheels = diameterOfWheels * Math.PI;
     public double ticksToIN = (1 / ticksPerRev) * circumfrenceOfWheels;
     public double INToTicks = (1 / ticksToIN);
+    public double rangeSensorResolutionMM = 1; //2m distance sensor has 1mm measurement resolution
+    public double rangeSensorLowerBoundCM = 5; //2m ds 5cm - 200cm
+    public double rangeSensorUpperBoundCM = 200; //cm
+
 
     double values[] = new double[10];
     int indexValue = 0;
