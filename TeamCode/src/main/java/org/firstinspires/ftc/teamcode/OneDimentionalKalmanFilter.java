@@ -40,8 +40,9 @@ public class OneDimentionalKalmanFilter extends LinearOpMode {
                     kalmanFilterThreadRunning = true;
                     int i = 0;
                     while (!kalmanFilterStopThread && opModeIsActive()) {
+                        double range = chart.sensorRange.getDistance(DistanceUnit.INCH);
                         //gLib.zs.add((chart.BL.getCurrentPosition() + chart.BR.getCurrentPosition()) / 2 * lib.ticksToIN);
-                        gLib.zs.add(chart.sensorRange.getDistance(DistanceUnit.INCH));
+                        gLib.zs.add(range);
 
                         double[] prior = gLib.predict(x, process_model);
                         double[] likelihood = gLib.gaussian((Double) gLib.zs.get(i), sensor_var);
@@ -49,6 +50,7 @@ public class OneDimentionalKalmanFilter extends LinearOpMode {
                         x = gLib.update(prior, likelihood);
                         Logging.log("Prior: " + Arrays.toString(prior));
                         Logging.log("Update: " + Arrays.toString(x));
+                        Logging.log("Range Sensor: ", range);
 //                        telemetry.addData("Prior: ", Arrays.toString(prior));
 //                        telemetry.addData("Update: ", Arrays.toString(x));
 //                        telemetry.update();
@@ -82,31 +84,47 @@ public class OneDimentionalKalmanFilter extends LinearOpMode {
         while (opModeIsActive()) {
 //            telemetry.addData("Encoders: ", chart.BL.getCurrentPosition());
 //            telemetry.addData("Encoders: ", chart.BR.getCurrentPosition());
-            velocity = ((chart.BL.getVelocity() + chart.BR.getVelocity()) / 2)*lib.ticksToIN;
+            velocity = ((chart.TL.getVelocity() + chart.TR.getVelocity() + chart.BL.getVelocity() + chart.BR.getVelocity()) / 4)*lib.ticksToIN;
             telemetry.addData("Velocity: ", velocity);
             telemetry.addData("Kalman Range: ", kalmanRange);
             telemetry.addData("Sensor Range: ", chart.sensorRange.getDistance(DistanceUnit.INCH));
             telemetry.update();
             if (gamepad1.dpad_up) {
+                chart.TL.setTargetPosition(1120);
+                chart.TR.setTargetPosition(1120);
                 chart.BL.setTargetPosition(1120);
                 chart.BR.setTargetPosition(1120);
+                chart.TL.setPower(.5);
+                chart.TR.setPower(.5);
                 chart.BL.setPower(.5);
                 chart.BR.setPower(.5);
+                chart.TL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                chart.TR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 chart.BL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 chart.BR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             }
             if (gamepad1.dpad_down) {
+                chart.TL.setTargetPosition(-1120);
+                chart.TR.setTargetPosition(-1120);
                 chart.BL.setTargetPosition(-1120);
                 chart.BR.setTargetPosition(-1120);
+                chart.TL.setPower(-.5);
+                chart.TR.setPower(-.5);
                 chart.BL.setPower(-0.5);
                 chart.BR.setPower(-0.5);
+                chart.TL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                chart.TR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 chart.BL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 chart.BR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             }
 
             if (gamepad1.a) {
+                chart.TL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                chart.TR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 chart.BL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 chart.BR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                chart.TL.setPower(0);
+                chart.TR.setPower(0);
                 chart.BL.setPower(0);
                 chart.BR.setPower(0);
             }
