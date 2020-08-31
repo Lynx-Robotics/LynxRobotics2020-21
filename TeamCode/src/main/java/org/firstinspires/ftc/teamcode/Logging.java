@@ -153,7 +153,7 @@ public class Logging
         private String formatDate(long milliseconds)
         {
             SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm:ss:SSS");
-            dateFormat.setTimeZone(TimeZone.getTimeZone("America/Los_Angeles"));
+            dateFormat.setTimeZone(TimeZone.getTimeZone("America/Chicago"));
             Date resultDate = new Date(milliseconds);
             return dateFormat.format(resultDate);
         }

@@ -50,7 +50,6 @@ public class OneDimentionalKalmanFilter extends LinearOpMode {
                         x = gLib.update(prior, likelihood);
                         Logging.log("Prior: " + Arrays.toString(prior));
                         Logging.log("Update: " + Arrays.toString(x));
-                        Logging.log("Range Sensor: ", range);
 //                        telemetry.addData("Prior: ", Arrays.toString(prior));
 //                        telemetry.addData("Update: ", Arrays.toString(x));
 //                        telemetry.update();
